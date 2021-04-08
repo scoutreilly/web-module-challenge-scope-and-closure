@@ -42,6 +42,7 @@ function counterMaker() {
    return count++;
   }
 }
+//This function uses closure inside the function. Uses count as a local variable. This is also less heavy on the memory as it's local to one function.
 
 const counter1 = counterMaker();
 
@@ -51,7 +52,7 @@ let count = 0;
 function counter2() {
   return count++;
 }
-
+//This function relies on the let count for it's closure. Count is in global scope which can be more intensive depending on the size of the project and how often it's used. 
 
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
@@ -62,10 +63,10 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning() {
+  return Math.floor(Math.random() * 3);
 }
-
+inning()
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
@@ -81,19 +82,28 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(score, rounds) {
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < rounds; i++) {
+    homeScore = homeScore + score();
+    awayScore = awayScore + score();
+  }
+  return {'Home': homeScore,'Away': awayScore}
 }
+finalScore(inning, 9)
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(round) {
+  let homeScore = round();
+  let awayScore = round();
+  return {'Home': homeScore,'Away': awayScore}
 }
-
+getInningScore(inning)
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -136,10 +146,24 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(round, totalRounds) {
+  let allRounds = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < totalRounds; i++) {
+    let currentRound = round(inning);
+    homeScore = homeScore + currentRound.Home;
+    awayScore = awayScore + currentRound.Away;
+    allRounds.push(currentRound);
+  }
+  if (homeScore === awayScore) {
+    allRounds.push(`This game will require extra innings: Home ${homeScore} - Away ${awayScore}`);
+  } else {
+    allRounds.push(`Final Score: Home ${homeScore} - Away ${awayScore}`);
+  }
+  return allRounds
 }
-
+scoreboard(getInningScore, 9)
 
 
 
