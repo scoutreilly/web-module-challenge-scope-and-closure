@@ -43,6 +43,7 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+- Closure is needed in order to functions to be used in a local or global statue. It allows you to use a function in a function. Global variables inside many functions, and local variables can be passed through functions to be used throughout a file or project. 
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -64,8 +65,11 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+- the closure is newRoll. It is a local variable to the function being returned so you can use the contents elsewhere.
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+- The only thing that can change is the number of the roll. the function personalDice is being used to return that number, that stays the same. 
 c. What is the lexical scope of `newRoll`? 
+- it can only be referred to inside of the function being returned inside personalDice. However the output value can be used when the function is called and that number is returned.
 
 
 ### Task 3 - Stretch Goals
